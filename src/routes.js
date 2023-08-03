@@ -1,23 +1,12 @@
-const User = require('./models/Movies')
 const { Router } = require('express');
-const bodyParser = require('body-parser')
+const MovieController = require('./controllers/MovieController');
+const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
 
 const routes = Router();
 
-routes.post('/movies', jsonParser, async (req,res) => {
-
-    const {name, description, length} = req.body;
-
-    const movie = await User.create({
-        name,
-        description,
-        length
-    });
-
-
-    return res.json(movie)
-})
+routes.get('/movies', jsonParser, MovieController.index);
+routes.post('/movies', jsonParser, MovieController.store)
 
 
 module.exports = routes
