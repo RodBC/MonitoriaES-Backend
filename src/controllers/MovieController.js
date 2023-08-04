@@ -8,7 +8,22 @@ module.exports = {
         return res.json(movies)
     },
 
-    
+    async update(req, res){
+        const {name, description, length} = req.body;
+        const movie = await Movies.updateOne({name}, {
+            $set: {
+                description,
+                length
+            }
+        });
+        return res.json(movie)
+    },
+
+    async destroy(req, res){
+        const {name} = req.body;
+        const movie = await Movies.deleteOne({name});
+        return res.json(movie)
+    },
 
     async store(req, res) {
         const {name, description, length} = req.body;
